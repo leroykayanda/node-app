@@ -7,7 +7,7 @@ module "ecr_repo" {
 module "prometheus_ecr_repo" {
   source            = "./modules/aws-ecr-repo"
   env               = var.env
-  microservice_name = var.service
+  microservice_name = "prometheus"
 }
 
 module "vpc" {
