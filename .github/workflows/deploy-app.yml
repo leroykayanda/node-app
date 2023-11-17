@@ -16,6 +16,7 @@ jobs:
     secrets: inherit
 
   build-app-image:
+    needs: ["deploy-initial-infra"]
     uses: ./.github/workflows/build-app.yml
     with:
       ecr_repo: prod-node-app
