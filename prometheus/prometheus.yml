@@ -3,4 +3,4 @@ global:
 scrape_configs:
   - job_name: "node-application-monitoring-app"
     static_configs:
-      - targets: ["shop.rentrahisi.co.ke:443"]
+      - targets: ["shop.rentrahisi.co.ke"]

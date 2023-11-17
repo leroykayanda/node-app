@@ -92,6 +92,7 @@ variable "alb_subnets" {
 variable "deregistration_delay" {
   type        = number
   description = "ALB target group deregistration delay"
+  default     = 5
 }
 
 variable "health_check_path" {
