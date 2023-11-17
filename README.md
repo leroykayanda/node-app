@@ -37,11 +37,12 @@ The infrastructure setup includes.
 ## Pipeline
 We use Github Actions.
 
-*deploy-app.yaml*
+*deploy-app.yml*
 It has 2 re-usable workflows.
 
-*deploy-infra.yaml* - Uses terraform to deploy the infrastructure.
-*deploy-app.yaml* - This builds the app and deploys it to ECS fargate once the infra has been deployed.
+*build-app.yml* - This builds the app image and pushes it to ECR.
+*deploy-infra.yml* - Uses terraform to deploy the infrastructure.
+
 
 ## Prometheus
 We use the **prom-client** client library for Node.js to expose the default node metrics to a prometheus server. The prometheus server will scrape the /metrics endpoint every 5s for default Node metrics e.g nodejs_external_memory_bytes
@@ -54,6 +55,12 @@ The /metrics route has been configured in routes.js.
 
  1. Clone this repo and set up your own repo.
  2. Create a workspace in terraform cloud.
+ 3. Create an API token in terraform cloud to be used by Github actions. Add it a repository secret in Github and name it TERRAFORM_CLOUD_TOKEN.
+ 4. Set up an IAM user with admin priviledges. This user will be used by terraform to provision resources. 
+ 5. Create 2 environment variables (not terraform variables) in the terraform cloud workspace named AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY and populate them with the IAM key and secret obtained above. Mark the variables as sensitive.
+ 6. Go to the terraform/backend.tf file and update the workspace name.
+ 7. Go to terraform/variables.tf and modify the region variable to deploy the infra to a region you want. By default it deploys to eu-west-1.
+ 8. Go to .github/workflows/deploy-app.yml. Modify the branch that will trigger a deployment to your branch name. On the **build-app-image** job, set your aws region name. Also set the name of the ECR repo. This is constructed by concatenating the env variable in terraform/variables.tf, a hyphen and the service variable set in terraform/variables.tf eg if env is prod and service is node-app, ECR repo name will be prod-node-app. Set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY as repository secrets in Github. On the **deploy-infra** job, set terraform_workspace to your workspace name.
 
 Initialize env variables
 
