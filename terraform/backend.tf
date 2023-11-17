@@ -1,6 +1,6 @@
 terraform {
   backend "remote" {
-    organization = "credrails"
+    organization = "RentRahisi"
 
     workspaces {
       name = "node-app"
