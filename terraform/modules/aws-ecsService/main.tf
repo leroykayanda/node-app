@@ -185,7 +185,7 @@ resource "aws_security_group" "alb_sg" {
 }
 
 resource "aws_route53_record" "alb" {
-  count = contains(["dev", "stage", "sand"], var.env) && var.create_record == "yes" && var.create_elb == "yes" ? 1 : 0
+  count = var.create_record == "yes" && var.create_elb == "yes" ? 1 : 0
 
   zone_id = var.zone_id
   name    = var.domain_name
@@ -195,30 +195,6 @@ resource "aws_route53_record" "alb" {
     name                   = module.alb[0].lb_dns_name
     zone_id                = module.alb[0].lb_zone_id
     evaluate_target_health = false
-  }
-
-  lifecycle {
-    ignore_changes = [
-      weighted_routing_policy
-    ]
-  }
-}
-
-resource "aws_route53_record" "alb_prod" {
-  count          = contains(["dr", "prod"], var.env) && var.create_record == "yes" && var.create_elb == "yes" ? 1 : 0
-  zone_id        = var.zone_id
-  name           = var.domain_name
-  type           = "A"
-  set_identifier = var.set_identifier
-
-  weighted_routing_policy {
-    weight = var.record_weight
-  }
-
-  alias {
-    name                   = module.alb[0].lb_dns_name
-    zone_id                = module.alb[0].lb_zone_id
-    evaluate_target_health = true
   }
 
   lifecycle {

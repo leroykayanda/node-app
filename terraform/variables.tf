@@ -29,3 +29,18 @@ variable "capacity_provider" {
   description = "Short name of the ECS capacity provider"
   default     = "FARGATE"
 }
+
+variable "prometheus_port_mappings" {
+  type = list(map(number))
+  default = [
+    {
+      containerPort = 9090
+    }
+  ]
+}
+
+variable "prometheus_container_port" {
+  type        = number
+  description = "Port used by the container to receive traffic"
+  default     = 9090
+}
