@@ -9,6 +9,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  deploy-initial-infra:
+    uses: ./.github/workflows/deploy-infra.yml
+    with:
+      terraform_workspace: node-app
+    secrets: inherit
+
   build-app-image:
     uses: ./.github/workflows/build-app.yml
     with:
