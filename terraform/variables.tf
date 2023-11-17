@@ -23,3 +23,9 @@ variable "team" {
   default     = "devops"
 }
 
+#ecs
+variable "capacity_provider" {
+  type        = string
+  description = "Short name of the ECS capacity provider"
+  default     = "FARGATE"
+}
