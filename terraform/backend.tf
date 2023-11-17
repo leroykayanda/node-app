@@ -1,13 +1,11 @@
 terraform {
-  backend "remote" {
+  cloud {
     organization = "RentRahisi"
 
     workspaces {
       name = "node-app"
     }
   }
-
-  required_version = ">= 1.0.0"
 
   required_providers {
     aws = {
