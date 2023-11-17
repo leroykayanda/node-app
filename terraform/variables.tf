@@ -44,3 +44,4 @@ variable "prometheus_container_port" {
   description = "Port used by the container to receive traffic"
   default     = 9090
 }
+#
