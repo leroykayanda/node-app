@@ -10,7 +10,7 @@ concurrency:
 
 jobs:
   deploy-initial-infra:
-    uses: ./.github/workflows/deploy-infra.yml
+    uses: ./.github/workflows/deploy-initial-infra.yml
     with:
       terraform_workspace: node-app
     secrets: inherit

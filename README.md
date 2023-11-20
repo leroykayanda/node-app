@@ -38,9 +38,10 @@ The infrastructure setup includes.
 We use Github Actions.
 
 *deploy-app.yml*
-It has 2 re-usable workflows.
+It has 3 re-usable workflows.
 
-*build-app.yml* - This builds the app image and pushes it to ECR.
+*deploy-initial-infra* - This sets up ECR repos for the application and prometheus images
+*build-app.yml* - This builds the app and prometheus images and pushes them to ECR.
 *deploy-infra.yml* - Uses terraform to deploy the infrastructure.
 
 
